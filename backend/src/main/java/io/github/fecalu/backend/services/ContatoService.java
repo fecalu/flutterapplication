@@ -87,6 +87,14 @@ public class ContatoService {
         contatoRepository.save(contatoExistente);
     }
 
+    @Transactional
+    public void deletarContato(Long id) {
+        if (!contatoRepository.existsById(id)) {
+            throw new ContatoNaoEncontradoException("Contato não encontrado com ID: " + id);
+        }
+        contatoRepository.deleteById(id);
+    }
+
     private void validarDTO(ContatoCreateDTO contatoCreateDTO) {
         if (contatoRepository.existsByNumeroTelefone(contatoCreateDTO.getNumeroTelefone())) {
             throw new ContatoJaCadastradoException("Número de telefone já cadastrado");

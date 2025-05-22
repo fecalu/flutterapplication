@@ -47,4 +47,10 @@ public class ContatoController {
         return ResponseEntity.noContent().build();
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletarContato(@PathVariable Long id) {
+        contatoService.deletarContato(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }
