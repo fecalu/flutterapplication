@@ -22,4 +22,10 @@ public class GlobalExceptionHandler {
         ErroDTO erroDTO = new ErroDTO(Instant.now(), 409, ex.getMessage(), request.getRequestURI());
         return ResponseEntity.status(409).body(erroDTO);
     }
+
+    @ExceptionHandler(ContatoNaoEncontradoException.class)
+    public ResponseEntity<ErroDTO> handleContatoNaoEncontradoException(ContatoNaoEncontradoException ex, HttpServletRequest request) {
+        ErroDTO erroDTO = new ErroDTO(Instant.now(), 409, ex.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(409).body(erroDTO);
+    }
 }

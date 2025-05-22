@@ -2,6 +2,7 @@ package io.github.fecalu.backend.controllers;
 
 import io.github.fecalu.backend.dto.ContatoCreateDTO;
 import io.github.fecalu.backend.dto.ContatoResponseDTO;
+import io.github.fecalu.backend.dto.ContatoUpdateDTO;
 import io.github.fecalu.backend.services.ContatoService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
@@ -40,5 +41,10 @@ public class ContatoController {
         return ResponseEntity.ok(contatos);
     }
 
+    @PutMapping
+    public ResponseEntity<Void> atualizarContato(@Valid @RequestBody ContatoUpdateDTO contatoUpdateDTO) {
+        contatoService.atualizarContato(contatoUpdateDTO);
+        return ResponseEntity.noContent().build();
+    }
 
 }

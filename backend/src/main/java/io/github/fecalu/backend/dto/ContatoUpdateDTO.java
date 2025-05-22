@@ -92,11 +92,11 @@ public class ContatoUpdateDTO {
         this.numeroTelefone = numeroTelefone;
     }
 
-    public Boolean getFamilia() {
+    public Boolean getIsFamilia() {
         return isFamilia;
     }
 
-    public void setFamilia(Boolean familia) {
+    public void setIsFamilia(Boolean familia) {
         isFamilia = familia;
     }
 }
