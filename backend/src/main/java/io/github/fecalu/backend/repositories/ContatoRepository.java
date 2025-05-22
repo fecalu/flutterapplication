@@ -9,4 +9,6 @@ public interface ContatoRepository extends JpaRepository<Contato, Long> {
 
     boolean existsByNumeroTelefone(String numeroTelefone);
 
+    boolean existsByEmail(String email);
+
 }

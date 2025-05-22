@@ -17,4 +17,9 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(409).body(erroDTO);
     }
 
+    @ExceptionHandler(EmailJaCadastradoException.class)
+    public ResponseEntity<ErroDTO> handleEmailJaCadastradoException(EmailJaCadastradoException ex, HttpServletRequest request) {
+        ErroDTO erroDTO = new ErroDTO(Instant.now(), 409, ex.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(409).body(erroDTO);
+    }
 }
