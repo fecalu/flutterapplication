@@ -1,5 +1,6 @@
 package io.github.fecalu.backend.dto;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -17,6 +18,10 @@ public class ContatoUpdateDTO {
 
     private LocalDate dataNascimento;
 
+    @NotBlank(message = "E-mail não pode estar vazio")
+    @Email(message = "Formato de e-mail inválido")
+    private String email;
+
     @NotBlank(message = "Número de telefone é obrigatório")
     private String numeroTelefone;
 
@@ -25,19 +30,21 @@ public class ContatoUpdateDTO {
 
     public ContatoUpdateDTO() {}
 
-    public ContatoUpdateDTO(String nome, String sobrenome, LocalDate dataNascimento, String numeroTelefone, Boolean isFamilia) {
+    public ContatoUpdateDTO(String nome, String sobrenome, LocalDate dataNascimento, String email, String numeroTelefone, Boolean isFamilia) {
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.dataNascimento = dataNascimento;
+        this.email = email;
         this.numeroTelefone = numeroTelefone;
         this.isFamilia = isFamilia;
     }
 
-    public ContatoUpdateDTO(Long id, String nome, String sobrenome, LocalDate dataNascimento, String numeroTelefone, Boolean isFamilia) {
+    public ContatoUpdateDTO(Long id, String nome, String sobrenome, LocalDate dataNascimento, String email, String numeroTelefone, Boolean isFamilia) {
         this.id = id;
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.dataNascimento = dataNascimento;
+        this.email = email;
         this.numeroTelefone = numeroTelefone;
         this.isFamilia = isFamilia;
     }
@@ -63,6 +70,14 @@ public class ContatoUpdateDTO {
         this.sobrenome = sobrenome;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public LocalDate getDataNascimento() {
         return dataNascimento;
     }
@@ -77,10 +92,11 @@ public class ContatoUpdateDTO {
         this.numeroTelefone = numeroTelefone;
     }
 
-    public Boolean getIsFamilia() {
+    public Boolean getFamilia() {
         return isFamilia;
     }
-    public void setIsFamilia(Boolean isFamilia) {
-        this.isFamilia = isFamilia;
+
+    public void setFamilia(Boolean familia) {
+        isFamilia = familia;
     }
 }

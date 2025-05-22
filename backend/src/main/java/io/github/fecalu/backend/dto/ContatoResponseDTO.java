@@ -7,11 +7,22 @@ public class ContatoResponseDTO {
     private Long id;
     private String nome;
     private String sobrenome;
+    private String email;
     private LocalDate dataNascimento;
     private String numeroTelefone;
     private Boolean isFamilia;
 
     public ContatoResponseDTO() {}
+
+    public ContatoResponseDTO(Long id, String nome, String sobrenome, String email, LocalDate dataNascimento, String numeroTelefone, Boolean isFamilia) {
+        this.id = id;
+        this.nome = nome;
+        this.sobrenome = sobrenome;
+        this.email = email;
+        this.dataNascimento = dataNascimento;
+        this.numeroTelefone = numeroTelefone;
+        this.isFamilia = isFamilia;
+    }
 
     public Long getId() {
         return id;
@@ -34,6 +45,14 @@ public class ContatoResponseDTO {
         this.sobrenome = sobrenome;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public LocalDate getDataNascimento() {
         return dataNascimento;
     }
@@ -48,10 +67,11 @@ public class ContatoResponseDTO {
         this.numeroTelefone = numeroTelefone;
     }
 
-    public Boolean getIsFamilia() {
+    public Boolean getFamilia() {
         return isFamilia;
     }
-    public void setIsFamilia(Boolean isFamilia) {
-        this.isFamilia = isFamilia;
+
+    public void setFamilia(Boolean familia) {
+        isFamilia = familia;
     }
 }

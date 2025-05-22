@@ -1,5 +1,6 @@
 package io.github.fecalu.backend.dto;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -12,19 +13,23 @@ public class ContatoCreateDTO {
     @NotBlank(message = "Sobrenome é obrigatório")
     private String sobrenome;
 
+    @NotBlank(message = "E-mail não pode estar vazio")
+    @Email(message = "Formato de e-mail inválido")
+    private String email;
+
     private LocalDate dataNascimento;
 
     @NotBlank(message = "Número de telefone é obrigatório")
     private String numeroTelefone;
 
-    @NotNull(message = "Campo isFamilia não pode ser nulo")
-    private Boolean isFamilia;
+    private Boolean isFamilia = false;
 
     public ContatoCreateDTO() {}
 
-    public ContatoCreateDTO(String nome, String sobrenome, LocalDate dataNascimento, String numeroTelefone, Boolean isFamilia) {
+    public ContatoCreateDTO(String nome, String sobrenome, String email, LocalDate dataNascimento, String numeroTelefone, Boolean isFamilia) {
         this.nome = nome;
         this.sobrenome = sobrenome;
+        this.email = email;
         this.dataNascimento = dataNascimento;
         this.numeroTelefone = numeroTelefone;
         this.isFamilia = isFamilia;
@@ -44,6 +49,22 @@ public class ContatoCreateDTO {
         this.sobrenome = sobrenome;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Boolean getFamilia() {
+        return isFamilia;
+    }
+
+    public void setFamilia(Boolean familia) {
+        isFamilia = familia;
+    }
+
     public LocalDate getDataNascimento() {
         return dataNascimento;
     }
@@ -56,12 +77,5 @@ public class ContatoCreateDTO {
     }
     public void setNumeroTelefone(String numeroTelefone) {
         this.numeroTelefone = numeroTelefone;
-    }
-
-    public Boolean getIsFamilia() {
-        return isFamilia;
-    }
-    public void setIsFamilia(Boolean isFamilia) {
-        this.isFamilia = isFamilia;
     }
 }
