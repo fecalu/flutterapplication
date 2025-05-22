@@ -7,7 +7,9 @@ import io.github.fecalu.backend.exceptions.EmailJaCadastradoException;
 import io.github.fecalu.backend.model.Contato;
 import io.github.fecalu.backend.repositories.ContatoRepository;
 import org.modelmapper.ModelMapper;
-import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,11 +32,18 @@ public class ContatoService {
         return modelMapper.map(contatoSalvo, ContatoResponseDTO.class);
     }
 
+    @Transactional(readOnly = true)
+    public Page<ContatoResponseDTO> listarContatos(String descricao, int pageSize, int pageNumber) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        Page<Contato> contatos = contatoRepository.findContatosByDescricao(descricao, pageable);
+        return contatos.map(contato -> modelMapper.map(contato, ContatoResponseDTO.class));
+    }
+
     private void validarDTO(ContatoCreateDTO contatoCreateDTO) {
-        if(contatoRepository.existsByNumeroTelefone(contatoCreateDTO.getNumeroTelefone())) {
+        if (contatoRepository.existsByNumeroTelefone(contatoCreateDTO.getNumeroTelefone())) {
             throw new ContatoJaCadastradoException("Número de telefone já cadastrado");
         }
-        if(contatoRepository.existsByEmail(contatoCreateDTO.getEmail())) {
+        if (contatoRepository.existsByEmail(contatoCreateDTO.getEmail())) {
             throw new EmailJaCadastradoException("E-mail já cadastrado");
         }
     }
