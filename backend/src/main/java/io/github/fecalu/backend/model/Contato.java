@@ -19,6 +19,9 @@ public class Contato {
     @Column(name = "sobrenome", nullable = false)
     private String sobrenome;
 
+    @Column(name = "email", unique = true)
+    private String email;
+
     @Column(name = "data_nascimento")
     private LocalDate dataNascimento;
 
@@ -31,18 +34,20 @@ public class Contato {
     public Contato() {
     }
 
-    public Contato(Long id, String nome, String sobrenome, LocalDate dataNascimento, String numeroTelefone) {
+    public Contato(Long id, String nome, String sobrenome, String email, LocalDate dataNascimento, String numeroTelefone, Boolean isFamilia) {
         this.id = id;
         this.nome = nome;
         this.sobrenome = sobrenome;
+        this.email = email;
         this.dataNascimento = dataNascimento;
         this.numeroTelefone = numeroTelefone;
+        this.isFamilia = isFamilia;
     }
 
-    public Contato(Long id, String nome, String sobrenome, LocalDate dataNascimento, String numeroTelefone, Boolean isFamilia) {
-        this.id = id;
+    public Contato(String nome, String sobrenome, String email, LocalDate dataNascimento, String numeroTelefone, Boolean isFamilia) {
         this.nome = nome;
         this.sobrenome = sobrenome;
+        this.email = email;
         this.dataNascimento = dataNascimento;
         this.numeroTelefone = numeroTelefone;
         this.isFamilia = isFamilia;
@@ -70,6 +75,14 @@ public class Contato {
 
     public void setSobrenome(String sobrenome) {
         this.sobrenome = sobrenome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public LocalDate getDataNascimento() {
@@ -100,11 +113,11 @@ public class Contato {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Contato contato = (Contato) o;
-        return Objects.equals(id, contato.id) && Objects.equals(numeroTelefone, contato.numeroTelefone);
+        return Objects.equals(id, contato.id) && Objects.equals(email, contato.email) && Objects.equals(numeroTelefone, contato.numeroTelefone);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, numeroTelefone);
+        return Objects.hash(id, email, numeroTelefone);
     }
 }
