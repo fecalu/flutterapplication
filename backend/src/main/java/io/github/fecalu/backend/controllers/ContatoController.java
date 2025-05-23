@@ -53,4 +53,10 @@ public class ContatoController {
         return ResponseEntity.noContent().build();
     }
 
+    @PostMapping("/enviar-email/{id}")
+    public ResponseEntity<Void> enviarEmail(@PathVariable Long id) {
+        contatoService.enviarEmail(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }

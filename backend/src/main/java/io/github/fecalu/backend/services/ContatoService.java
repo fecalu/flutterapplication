@@ -21,10 +21,12 @@ public class ContatoService {
 
     private final ContatoRepository contatoRepository;
     private final ModelMapper modelMapper;
+    private final SendEmailService sendEmailService;
 
-    public ContatoService(ContatoRepository contatoRepository, ModelMapper modelMapper) {
+    public ContatoService(ContatoRepository contatoRepository, ModelMapper modelMapper, SendEmailService sendEmailService) {
         this.contatoRepository = contatoRepository;
         this.modelMapper = modelMapper;
+        this.sendEmailService = sendEmailService;
     }
 
     @Transactional
@@ -93,6 +95,12 @@ public class ContatoService {
             throw new ContatoNaoEncontradoException("Contato não encontrado com ID: " + id);
         }
         contatoRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void enviarEmail(Long id){
+        Contato contato = contatoRepository.findById(id).orElseThrow(() -> new ContatoNaoEncontradoException("Contato inexistente."));
+        sendEmailService.sendEmail(contato.getEmail(), "Parabenizações, aniversariante!", "Feliz aniversário, " + contato.getNome());
     }
 
     private void validarDTO(ContatoCreateDTO contatoCreateDTO) {
