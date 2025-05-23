@@ -28,4 +28,10 @@ public class GlobalExceptionHandler {
         ErroDTO erroDTO = new ErroDTO(Instant.now(), 409, ex.getMessage(), request.getRequestURI());
         return ResponseEntity.status(409).body(erroDTO);
     }
+
+    @ExceptionHandler(EmailException.class)
+    public ResponseEntity<ErroDTO> handleEmailException(EmailException ex, HttpServletRequest request) {
+        ErroDTO erroDTO = new ErroDTO(Instant.now(), 409, ex.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(409).body(erroDTO);
+    }
 }
